@@ -28,8 +28,11 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->brandName(fn () => \App\Models\GlobalSetting::first()?->site_name ?? 'SMARTOUIES')
+            ->brandLogo(fn () => ($logo = \App\Models\GlobalSetting::first()?->site_logo) ? \Illuminate\Support\Facades\Storage::url($logo) : null)
+            ->favicon(fn () => ($icon = \App\Models\GlobalSetting::first()?->site_icon) ? \Illuminate\Support\Facades\Storage::url($icon) : asset('favicon.ico'))
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Indigo,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
@@ -39,7 +42,6 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -55,6 +57,6 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->plugin(\Filament\SpatieLaravelTranslatablePlugin::make()->defaultLocales(['fr', 'en']));
+            ->plugin(\Filament\SpatieLaravelTranslatablePlugin::make()->defaultLocales(['fr', 'en', 'ar']));
     }
 }

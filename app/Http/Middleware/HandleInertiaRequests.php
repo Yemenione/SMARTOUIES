@@ -34,6 +34,9 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'settings' => \Illuminate\Support\Facades\Cache::remember('global_settings', 60 * 60, function () {
+                return \App\Models\GlobalSetting::first();
+            }),
         ];
     }
 }

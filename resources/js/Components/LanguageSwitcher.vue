@@ -7,6 +7,7 @@ const currentLang = computed(() => document.documentElement.lang || 'fr');
 const changeLanguage = (lang) => {
     loadLanguageAsync(lang);
     localStorage.setItem('lang', lang);
+    document.documentElement.lang = lang;
 }
 </script>
 
@@ -15,7 +16,7 @@ const changeLanguage = (lang) => {
         <button 
             @click="changeLanguage('fr')" 
             class="px-2 py-1 text-sm font-medium rounded transition-colors"
-            :class="currentLang === 'fr' ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:bg-gray-100'"
+            :class="currentLang === 'fr' ? 'bg-primary-600 text-white' : 'text-gray-700 hover:bg-gray-100'"
         >
             FR
         </button>
@@ -23,7 +24,7 @@ const changeLanguage = (lang) => {
         <button 
             @click="changeLanguage('en')" 
             class="px-2 py-1 text-sm font-medium rounded transition-colors"
-            :class="currentLang === 'en' ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:bg-gray-100'"
+            :class="currentLang === 'en' ? 'bg-primary-600 text-white' : 'text-gray-700 hover:bg-gray-100'"
         >
             EN
         </button>
